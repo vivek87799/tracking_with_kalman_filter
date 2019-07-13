@@ -45,6 +45,7 @@ class Tracker(object):
         Return:
             None
         """
+        print("[Info], init Tracker")
         self.dist_thresh = dist_thresh
         self.max_frames_to_skip = max_frames_to_skip
         self.max_trace_length = max_trace_length
