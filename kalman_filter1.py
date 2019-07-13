@@ -71,7 +71,7 @@ class KalmanFilter(object):
         self.kf.H = np.array([[1, 0, 0, 0],
                               [0, 0, 1, 0]])
         self.kf.R = np.diag((0.01, 0.01))
-        self.kf.P = np.eye(6) * 4
+        self.kf.P = np.eye(4) * 4
         self.last_result = 0.0
 
     def predict(self):
