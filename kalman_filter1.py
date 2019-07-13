@@ -58,6 +58,7 @@ class KalmanFilter(object):
             None
         """
 
+        print("[INFO], init Kalman Filter")
         self.kf = KalmanFilterpy(dim_x=4, dim_z=2)
         dt = 0.2  # time step
         self.kf.F = np.array([[1.0, dt, 0.0, 0.0],
