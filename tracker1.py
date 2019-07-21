@@ -8,7 +8,7 @@ class Track(object):
     """Track class for every object to be tracked
     """
 
-    def __init__(self, prediction, trackIdCount, cls_pred=0):
+    def __init__(self, prediction, trackIdCount, cls_pred="det"):
         """Initialize variables used by Track class
         Args:
             prediction: predicted centroids of object to be tracked
