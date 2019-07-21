@@ -76,7 +76,7 @@ class Tracker(object):
         # Create tracks if no tracks vector found
         if len(self.tracks) == 0:
             for i in range(len(detections)):
-                track = Track(detections[i], self.trackIdCount, cls_pred[i])
+                track = Track(detections[i], self.trackIdCount, cls_preds[i])
                 self.trackIdCount += 1
                 self.tracks.append(track)
 
