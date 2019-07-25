@@ -156,7 +156,6 @@ class Tracker(object):
                 self.tracks[i].KF.correct(self.tracks[i].KF.kf.x, 0)
                 self.tracks[i].prediction = self.tracks[i].KF.kf.x[[0, 2, 4]]
 
-
             if len(self.tracks[i].trace) > self.max_trace_length:
                 for j in range(len(self.tracks[i].trace) -
                                self.max_trace_length):
@@ -259,21 +258,18 @@ class Tracker(object):
 
         # Update KalmanFilter state, lastResults and tracks trace
         for i in range(len(assignment)):
-            self.tracks3d[i].KF.predict3d()
+            self.tracks3d[i].KF.predict()
 
             if assignment[i] != -1:
                 self.tracks3d[i].skipped_frames = 0
-                # get the velocity of the moving object or the diff in pos
-
-                diff_x = detections[assignment[i]][0][0] - self.tracks3d[i].KF.b3d[0][0]
-                diff_y = detections[assignment[i]][1][0] - self.tracks3d[i].KF.b3d[1][0]
-                diff_z = detections[assignment[i]][2][0] - self.tracks3d[i].KF.b3d[2][0]
-                self.tracks3d[i].KF.velocity3d(diff_x, diff_y, diff_z)
-                self.tracks3d[i].prediction = self.tracks3d[i].KF.correct3d(
-                                            detections[assignment[i]], 1)
+                # TODO_ with the prediction update the 3d points
+                self.tracks3d[i].KF.correct(detections[assignment[i]], 1)
+                _temp = self.tracks3d[i].KF.kf.x[[0, 2, 4]]
+                self.tracks3d[i].prediction = self.tracks3d[i].KF.kf.x[[0, 2, 4]]
             else:
-                self.tracks3d[i].prediction = self.tracks3d[i].KF.correct3d(
-                                            np.array([[0], [0]]), 0)
+                # TODO_ with the prediction update the 3d points
+                self.tracks3d[i].KF.correct(self.tracks3d[i].KF.kf.x, 0)
+                self.tracks3d[i].prediction = self.tracks3d[i].KF.kf.x[[0, 2, 4]]
 
             if len(self.tracks3d[i].trace) > self.max_trace_length:
                 for j in range(len(self.tracks3d[i].trace) -
@@ -281,4 +277,4 @@ class Tracker(object):
                     del self.tracks3d[i].trace[j]
 
             self.tracks3d[i].trace.append(self.tracks3d[i].prediction)
-            self.tracks3d[i].KF.lastResult3d = self.tracks3d[i].prediction
+            self.tracks3d[i].KF.lastResult = self.tracks3d[i].prediction

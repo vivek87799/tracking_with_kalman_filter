@@ -75,13 +75,13 @@ class KalmanFilter(object):
                               [0.0, 0.0, 0.0, 0.0, 1, dt],
                               [0.0, 0.0, 0.0, 0.0, 0.0, 1]])
         # tracker.u = 0.
-        q = Q_discrete_white_noise(dim=3, dt=dt, var=0.001)
-        self.kf.Q = block_diag(q, q)
+        q = Q_discrete_white_noise(dim=3, dt=dt, var=1)
+        self.kf.Q = block_diag(q, q)  # process noise matrix
 
         self.kf.H = np.array([[1, 0, 0, 0, 0, 0],
                               [0, 0, 1, 0, 0, 0],
                               [0, 0, 0, 0, 1, 0]])
-        self.kf.R = np.diag((0.01, 0.01, 0.01))
+        self.kf.R = np.diag((0.01, 0.01, 0.01))   # observation noise matrix
         self.kf.x = np.array([[0, 0, 0, 0, 0, 0]]).T
         self.kf.P = np.eye(6) * 4
         self.last_result = 0.0
@@ -114,7 +114,7 @@ class KalmanFilter(object):
             _module_name = inspect.currentframe().f_code.co_name
             logger.info(f"Starting {_module_name} module")
             if not flag:
-                return self.kf.last_result
+                return self.kf.update(self.lastResult)
             else:
                 return self.kf.update(b)
         except Exception as error:
