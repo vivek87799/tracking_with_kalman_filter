@@ -149,11 +149,12 @@ class Tracker(object):
                 self.tracks[i].skipped_frames = 0
                 # TODO_ with the prediction update the 3d points
                 self.tracks[i].KF.correct(detections[assignment[i]], 1)
-                self.tracks[i].prediction = self.tracks[i].KF.kf.x
+                _temp = self.tracks[i].KF.kf.x[[0, 2, 4]]
+                self.tracks[i].prediction = self.tracks[i].KF.kf.x[[0, 2, 4]]
             else:
                 # TODO_ with the prediction update the 3d points
                 self.tracks[i].KF.correct(self.tracks[i].KF.kf.x, 0)
-                self.tracks[i].prediction = self.tracks[i].KF.kf.x
+                self.tracks[i].prediction = self.tracks[i].KF.kf.x[[0, 2, 4]]
 
 
             if len(self.tracks[i].trace) > self.max_trace_length:
