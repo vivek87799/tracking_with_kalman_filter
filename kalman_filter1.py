@@ -59,7 +59,15 @@ class KalmanFilter(object):
         """
 
         self.kf = KalmanFilterpy(dim_x=6, dim_z=3)
-        dt = 0.2  # time step
+        self.dt = 0.2  # time step
+        """
+        self.kf.F = np.array([[1.0, 0.0, 0.0, self.dt, 0.0,     0.0],
+                              [0.0, 1.0, 0.0, 0.0,     self.dt, 0.0],
+                              [0.0, 0.0, 1.0, 0.0,     0.0,     self.dt],
+                              [0.0, 0.0, 0.0, 1,       0.0,     0.0],
+                              [0.0, 0.0, 0.0, 0.0,     1,       0.0],
+                              [0.0, 0.0, 0.0, 0.0,     0.0,     1]])
+        """
         self.kf.F = np.array([[1.0, dt, 0.0, 0.0, 0.0, 0.0],
                               [0.0, 1.0, 0.0, 0.0, 0.0, 0.0],
                               [0.0, 0.0, 1.0, dt, 0.0, 0.0],

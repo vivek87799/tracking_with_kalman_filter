@@ -91,7 +91,7 @@ class Tracker(object):
                                        diff[1][0]*diff[1][0])
                     cost[i][j] = distance
                 except Exception as e:
-                    print("[ERROR] error in tracker.py while calculation the dist", e)
+                    print("[ERROR] error in tracker1.py while calculation the dist", e)
 
         # Let's average the squared ERROR
         cost = 0.5 * cost
@@ -204,7 +204,7 @@ class Tracker(object):
                                        diff[2][0] * diff[2][0])
                     cost[i][j] = distance
                 except Exception as e:
-                    print("[ERROR] error in tracker.py while calculation the dist", e)
+                    print("[ERROR] error in tracker1.py while calculation the dist", e)
 
         # Let's average the squared ERROR
         cost = 0.5 * cost
