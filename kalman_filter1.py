@@ -77,6 +77,7 @@ class KalmanFilter(object):
         # tracker.u = 0.
         q = Q_discrete_white_noise(dim=3, dt=dt, var=1)
         self.kf.Q = block_diag(q, q)  # process noise matrix
+        self.kf.Q = np.diag((1, 1, 1, 1, 1, 1))
 
         self.kf.H = np.array([[1, 0, 0, 0, 0, 0],
                               [0, 0, 1, 0, 0, 0],
